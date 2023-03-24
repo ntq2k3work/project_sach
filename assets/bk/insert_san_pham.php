@@ -13,8 +13,8 @@
             <input type="text" name="Ten" id="ten">
         </div>
         <div class="input_section">
-            <label for="tieu_de">Tiêu đề sản phẩm</label>
-            <input type="text" name="Tieu_de" id="tieu_de">
+            <label for="The_Loai">Thể loại</label>
+            <input type="text" name="The_Loai" id="tieu_de">
         </div>
         <div class="input_section">
             <label for="noi_dung">Nội dung</label>

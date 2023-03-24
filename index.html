@@ -1,0 +1,418 @@
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicon/site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/reset.css">
+    <link rel="stylesheet" href="./assets/style.css">
+    <link rel="stylesheet" href="./assets/responsive.css">
+    <title>Web bán sách</title>
+</head>
+<body>
+    <?php
+        $ketnoi = mysqli_connect('localhost','root','','truyen_tranh_by_quan');
+        mysqli_set_charset($ketnoi,'utf8');
+        $sql_lay_cac_san_pham = "select * from san_pham";
+        $danh_sach_san_pham = mysqli_query($ketnoi,$sql_lay_cac_san_pham);
+    ?>
+
+   <header>
+        <div id="header_container">
+            <div class="header_logo">
+                <img src="./assets/favicon/android-chrome-512x512.png" alt="">
+            </div>
+            <ul class="header_list_menu">
+                <li>
+                    <a href="">Danh mục sách <i class="fa-solid fa-chevron-down menu_icon_c1"></i></a>
+                    <ul class="sub_menu list_book_menu_sub">
+                        <li class="sub_menu_2">
+                            <a href="">Sách kinh doanh <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
+                            <ul class="sub_menu_3">
+                                <li><a href="">Lãnh đạo</a></li>
+                                <li><a href="">Marketing</a></li>
+                                <li><a href="">Tài chính</a></li>
+                            </ul>
+                        </li>
+                        <li class="sub_menu_2">
+                            <a href="">Sách kĩ năng <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
+                            <ul class="sub_menu_3">
+                                <li><a href="">Lãnh đạo</a></li>
+                                <li><a href="">Marketing</a></li>
+                                <li><a href="">Tài chính</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="">Sách tâm lý học</a></li>
+                        <li class="sub_menu_2">
+                            <a href="">Sách học tập <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
+                            <ul class="sub_menu_3">
+                                <li><a href="">Lãnh đạo</a></li>
+                                <li><a href="">Marketing</a></li>
+                                <li><a href="">Tài chính</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="">Sách thiếu nhi</a></li>
+                        <li class="sub_menu_2">
+                            <a href="">Sách văn học - Tiểu thuyết <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
+                            <ul class="sub_menu_3">
+                                <li><a href="">Lãnh đạo</a></li>
+                                <li><a href="">Marketing</a></li>
+                                <li><a href="">Tài chính</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="">Quà tặng cột sống</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Giới thiệu <i class="fa-solid fa-chevron-down menu_icon_c1"></i></a>
+                    <ul class="sub_menu header_introduce">
+                        <li><a href="">Về chúng tôi</a></li>
+                        <li><a href="">Trang web</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Tin tức <i class="fa-solid fa-chevron-down menu_icon_c1"></i></a>
+                    <ul class="sub_menu header_new">
+                        <li><a href="">Điểm sách</a></li>
+                        <li><a href="">Tác giả</a></li>
+                        <li><a href="">Sự kiện</a></li>
+                        <li><a href="">Blog</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="">Xem thêm <i class="fa-solid fa-chevron-down menu_icon_c1"></i></a>
+                    <ul class="sub_menu">
+                        <li><a href="">Truyện Anime</a></li>
+                        
+                        <li><a href="">Khuyến Mãi</a></li>
+                        <li><a href="">Best-Seller</a></li>
+                        <li><a href="">Mới Phát Hành</a></li>
+                        <li><a href="">Bài Viết Mới Nhất</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="header_action">
+                <div class="header_action_section header_action_search">
+                    <i class="header_action_icon fa-solid fa-magnifying-glass"></i>
+                </div>
+                <div class="header_action_section header_action_user">
+                    <i class="header_action_icon fa-solid fa-user"></i>
+                </div>
+                <div class="header_action_section header_action_shopping">
+                    <i class="header_action_icon fa-solid fa-cart-shopping"></i>
+                    <sup class="shopping_count">0</sup>
+                </div>
+            </div>
+        </div>
+   </header>
+   <div id="slider">
+        <div class="slider_pre_next">
+            <i class="fa fa-angle-left slider_pre_next_icon"></i>
+            <i class="fa fa-angle-right slider_pre_next_icon"></i>
+        </div>
+        <ul class="slider_dots">
+            <li class="slider_dots_icon cl_ccc" data-index = "0"><i class=" fa-solid fa-circle"></i></li>
+            <li class="slider_dots_icon" data-index = "1"><i class=" fa-solid fa-circle"></i></li>
+            <li class="slider_dots_icon" data-index = "2"><i class=" fa-solid fa-circle"></i></li>
+        </ul>
+        <div class="slider_wrapper">
+            <div class="slider_main">
+                <div class="slider_item slider_1">
+    
+                </div>
+                <div class="slider_item slider_2">
+        
+                </div>
+                <div class="slider_item slider_3">
+        
+                </div>
+            </div>
+        </div>
+   </div>
+   <div id="container">
+        <div class="list_book_outstanding">
+            <h2>Danh Mục Sách Nổi Bật</h2>
+            <ul class="list_book_outstanding_main">
+                <li>
+                    <div class="outstanding_item">
+                        <a href="">
+                            <div class="outstanding_item_img">
+                                <img src="./assets/img/constanding/categorybanner_1_img.webp" alt="">
+                            </div>
+                            <h3>Best-Seller</h3>
+                        </a>
+                        <a href="">
+                            Mua ngay <i class=" fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div class="outstanding_item">
+                        <a href="">
+                            <div class="outstanding_item_img">
+                                <img src="./assets/img/constanding/categorybanner_1_img.webp" alt="">
+                            </div>
+                            <h3>Best-Seller</h3>
+                        </a>
+                        <a href="">
+                            Mua ngay <i class=" fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div class="outstanding_item">
+                        <a href="">
+                            <div class="outstanding_item_img">
+                                <img src="./assets/img/constanding/categorybanner_1_img.webp" alt="">
+                            </div>
+                            <h3>Best-Seller</h3>
+                        </a>
+                        <a href="">
+                            Mua ngay <i class=" fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div class="outstanding_item">
+                        <a href="">
+                            <div class="outstanding_item_img">
+                                <img src="./assets/img/constanding/categorybanner_1_img.webp" alt="">
+                            </div>
+                            <h3>Best-Seller</h3>
+                        </a>
+                        <a href="">
+                            Mua ngay <i class=" fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </li>
+                <li>
+                    <div class="outstanding_item">
+                        <a href="">
+                            <div class="outstanding_item_img">
+                                <img src="./assets/img/constanding/categorybanner_1_img.webp" alt="">
+                            </div>
+                            <h3>Best-Seller</h3>
+                        </a>
+                        <a href="">
+                            Mua ngay <i class=" fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="list_book_promotion">
+            <div class="promotion_head">
+                <h2>Sản Phẩm Khuyến Mãi</h2>
+            </div>
+            <ul class="promotion_main">
+                <a href="" class="promotion_item product_item">
+                    <div class="product_item_img">
+                        <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
+                    </div>
+                    <div class="product_item_main">
+                        <div class="product_item_content">
+                            <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
+                            <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
+                        </div>
+                        <div class="product_item_cost">
+                            <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
+                            <del class="product_item_cost_order">169,000 <sup><u>đ</u></sup></del>
+                        </div>
+                    </div>
+                    <div class="product_shopping">
+                        <p class="product_shopping_add">Thêm giỏ hàng</p>
+                        <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
+                    </div>
+                </a>
+                <a href="" class="promotion_item product_item">
+                    <div class="product_item_img">
+                        <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
+                    </div>
+                    <div class="product_item_main">
+                        <div class="product_item_content">
+                            <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
+                            <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
+                        </div>
+                        <div class="product_item_cost">
+                            <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
+                            <del class="product_item_cost_order">169,000 <sup><u>đ</u></sup></del>
+                        </div>
+                    </div>
+                    <div class="product_shopping">
+                        <p class="product_shopping_add">Thêm giỏ hàng</p>
+                        <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
+                    </div>
+                </a>
+                
+                
+                
+                
+            </ul>
+            <button class="promotion_view_all">
+                <span></span>
+                <p>Xem Tất Cả</p>
+            </button>
+        </div>
+        <!-- Best Seller -->
+        <div class="seller">
+            <div class="seller_head">
+                <div class="seller_head_left">
+                    Best-Seller
+                </div>
+                <ul class="seller_head_right">
+                    <li><a href="">Sách Kỹ Năng - Kinh Doanh</a></li>
+                    <li><a href="">Sách Tâm Lý Học</a></li>
+                    <li><a href="">Sách Văn Học- Tiểu Thuyết</a></li>
+                    <li><a href="">Sách Mẹ & Bé</a></li>
+                </ul>
+            </div>
+            <ul class="seller_main">
+                <a href="" class="seller_item product_item">
+                    <div class="product_item_img">
+                        <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
+                    </div>
+                    <div class="product_item_main">
+                        <div class="product_item_content">
+                            <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
+                            <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
+                        </div>
+                        <div class="product_item_cost">
+                            <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
+                            <del class="product_item_cost_order">169,000 <sup><u>đ</u></sup></del>
+                        </div>
+                    </div>
+                    <div class="product_shopping">
+                        <p class="product_shopping_add">Thêm giỏ hàng</p>
+                        <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
+                    </div>
+                </a>
+                <a href="" class="seller_item product_item">
+                    <div class="product_item_img">
+                        <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
+                    </div>
+                    <div class="product_item_main">
+                        <div class="product_item_content">
+                            <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
+                            <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
+                        </div>
+                        <div class="product_item_cost">
+                            <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
+                            <del class="product_item_cost_order">169,000 <sup><u>đ</u></sup></del>
+                        </div>
+                    </div>
+                    <div class="product_shopping">
+                        <p class="product_shopping_add">Thêm giỏ hàng</p>
+                        <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
+                    </div>
+                </a>
+                <a href="" class="seller_item product_item">
+                    <div class="product_item_img">
+                        <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
+                    </div>
+                    <div class="product_item_main">
+                        <div class="product_item_content">
+                            <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
+                            <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
+                        </div>
+                        <div class="product_item_cost">
+                            <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
+                            <del class="product_item_cost_order">169,000 <sup><u>đ</u></sup></del>
+                        </div>
+                    </div>
+                    <div class="product_shopping">
+                        <p class="product_shopping_add">Thêm giỏ hàng</p>
+                        <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
+                    </div>
+                </a>
+                <a href="" class="seller_item product_item">
+                    <div class="product_item_img">
+                        <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
+                    </div>
+                    <div class="product_item_main">
+                        <div class="product_item_content">
+                            <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
+                            <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
+                        </div>
+                        <div class="product_item_cost">
+                            <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
+                            <del class="product_item_cost_order">169,000 <sup><u>đ</u></sup></del>
+                        </div>
+                    </div>
+                    <div class="product_shopping">
+                        <p class="product_shopping_add">Thêm giỏ hàng</p>
+                        <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
+                    </div>
+                </a>
+                <a href="" class="seller_item product_item">
+                    <div class="product_item_img">
+                        <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
+                    </div>
+                    <div class="product_item_main">
+                        <div class="product_item_content">
+                            <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
+                            <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
+                        </div>
+                        <div class="product_item_cost">
+                            <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
+                            <del class="product_item_cost_order">169,000 <sup><u>đ</u></sup></del>
+                        </div>
+                    </div>
+                    <div class="product_shopping">
+                        <p class="product_shopping_add">Thêm giỏ hàng</p>
+                        <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
+                    </div>
+                </a>
+                <a href="" class="seller_item product_item">
+                    <div class="product_item_img">
+                        <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
+                    </div>
+                    <div class="product_item_main">
+                        <div class="product_item_content">
+                            <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
+                            <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
+                        </div>
+                        <div class="product_item_cost">
+                            <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
+                            <del class="product_item_cost_order">169,000 <sup><u>đ</u></sup></del>
+                        </div>
+                    </div>
+                    <div class="product_shopping">
+                        <p class="product_shopping_add">Thêm giỏ hàng</p>
+                        <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
+                    </div>
+                </a>
+                <a href="" class="seller_item product_item">
+                    <div class="product_item_img">
+                        <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
+                    </div>
+                    <div class="product_item_main">
+                        <div class="product_item_content">
+                            <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
+                            <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
+                        </div>
+                        <div class="product_item_cost">
+                            <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
+                            <del class="product_item_cost_order">169,000 <sup><u>đ</u></sup></del>
+                        </div>
+                    </div>
+                    <div class="product_shopping">
+                        <p class="product_shopping_add">Thêm giỏ hàng</p>
+                        <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
+                    </div>
+                </a>
+                
+            </ul>
+        </div>
+   </div>
+   <footer></footer>
+   <script src="/assets/slider_action.js"></script>
+</body>
+</html>

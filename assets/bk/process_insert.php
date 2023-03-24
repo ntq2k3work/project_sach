@@ -1,6 +1,6 @@
 <?php
     $Ten = $_POST['Ten'];
-    $Tieu_de = $_POST['Tieu_de'];
+    $The_Loai = $_POST['The_Loai'];
     $noi_dung = $_POST['noi_dung'];
     $Link_anh = $_POST['Link_anh'];
     $So_Luong = $_POST['So_Luong'];
@@ -12,8 +12,8 @@
     mysqli_set_charset($ketnoi,'utf8');
 
     $sql_insert_san_pham = "
-            insert into san_pham(Ten,Tieu_de,noi_dung,Link_anh,So_Luong,Gia_Goc,Gia_Ban,Giam_Gia)
-            values('$Ten','$Tieu_de','$noi_dung','$Link_anh',$So_Luong,$Gia_Goc,$Gia_Ban,$Giam_Gia)";
+            insert into san_pham(Ten,The_Loai,noi_dung,Link_anh,So_Luong,Gia_Goc,Gia_Ban,Giam_Gia)
+            values('$Ten','$The_Loai','$noi_dung','$Link_anh',$So_Luong,$Gia_Goc,$Gia_Ban,$Giam_Gia)";
     mysqli_query($ketnoi,$sql_insert_san_pham);
 
     mysqli_close($ketnoi);
