@@ -1,7 +1,7 @@
 var slider = document.querySelector('#slider');
 var slider_main = slider.querySelector('.slider_main');
-var slider_prev = slider.querySelector('.slider_pre_next_icon.fa-angle-left');
-var slider_next = slider.querySelector('.slider_pre_next_icon.fa-angle-right');
+var slider_prev = document.querySelector('.pre_next_icon.fa-angle-left');
+var slider_next = document.querySelector('.pre_next_icon.fa-angle-right');
 var slider_item = slider.querySelectorAll('.slider_item');
 var slider_width = slider_item[0].offsetWidth; //Lấy độ dài 1 slider_item
 var slider_length = slider_item.length; //Lấy số phần tử
@@ -30,6 +30,13 @@ ar_dots_items.forEach((element,index) => {
 
 /// Xử lí prev - next
 let positionX = 0;
+setInterval(function(){
+    if(currentIndex == ar_dots_items.length - 1){
+        currentIndex = 0;
+    }else currentIndex ++;
+    dotAction(currentIndex);
+    changesSlider(1);
+},3000);
 slider_next.addEventListener("click",function(e){
     if(currentIndex == ar_dots_items.length - 1){
         currentIndex = 0;

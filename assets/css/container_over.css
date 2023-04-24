@@ -1,0 +1,45 @@
+:root{
+    --height:60px;
+    --width_center: 1400px;
+    --height_shopping:60px;
+    --background_white:#fff;
+    --background_near_white:#f1f1f1; 
+    --color_black:#000;
+    --color_white:#fff;
+}
+.on_form{
+    display: block !important;
+}
+body{
+    position: relative;
+}
+#modal{
+    content: "";
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 110;
+    /* opacity: 0.45; */
+}
+.notify_icon{
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 6px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.notify{
+    position: relative;
+    margin: 0 auto;
+    margin-top: 15%;
+    text-align: center;
+    width: 600px;
+    padding: 60px 0;
+    background-color: #fff;
+    
+}
