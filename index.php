@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,18 +22,18 @@
 <body>
     
     <?php 
-        include "modal_sign.php" 
+        include "./assets/bk/connect.php";
+        include "modal_sign.php" ;
     ?>
     <?php
         function convertMoney($value) {
             if ($value<0) return "-".convertMoney(-$value);
             return number_format(round($value/1000)*1000);
         }
-        include "./assets/bk/connect.php";
+        
        $sql_new_book = "SELECT * FROM products INNER JOIN manufactures ON products.id_manufactures = manufactures.id_manufactures
        where DATEDIFF(CURDATE(),Release_Time) <= 61";
-       $sql_sale = "SELECT * FROM products INNER JOIN manufactures ON products.id_manufactures = manufactures.id_manufactures
-       where sale_percents > 0";
+       $sql_sale = "SELECT * FROM products INNER JOIN manufactures ON products.id_manufactures = manufactures.id_manufactures where sale_percents > 0";
         $list_new_book = mysqli_query($connect,$sql_new_book);
         $list_sale_book = mysqli_query($connect,$sql_sale);
        mysqli_close($connect);
@@ -40,7 +41,6 @@
 
    <?php include "header.php" ?>  
       <!--  -->
-      
    <div id="slider">
         <div class="slider_pre_next">
             <i class="fa fa-angle-left pre_next_icon"></i>
