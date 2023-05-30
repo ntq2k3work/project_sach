@@ -21,7 +21,6 @@
             $_SESSION['cart']["$id"] = 1;
         }
     }
-    print_r($_SESSION['cart']);
     session_start();
     $_SESSION['add_compelete'] = "Thêm giỏ hàng thành công";
     $previous_page = $_SERVER['HTTP_REFERER'];

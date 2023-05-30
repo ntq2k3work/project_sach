@@ -1,6 +1,7 @@
 <?php
     // Kiểm tra xem thông tin nhập vào có trống không 
     if(empty($_POST['name']) || empty($_POST['address']) || empty($_POST['phone']) || empty($_POST['email'])){
+        
         header('location:form_insert.php?error=Phải điền đầy đủ thông tin'); //Nếu trống thì quay lại và thông báo
         exit;
     }
