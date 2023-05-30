@@ -1,5 +1,5 @@
 <?php
-    include "assets/bk/connect.php";
+    include "./assets/connect.php";
 
     $first_name = addslashes($_POST['first_name']);
     $last_name = addslashes($_POST['last_name']);

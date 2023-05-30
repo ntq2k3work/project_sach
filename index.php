@@ -14,15 +14,23 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="stylesheet" href="./assets/css/container_over.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
     <title>Web bán sách</title>
 </head>
 <body>
-    
+    <?php if(!empty($_SESSION['add_compelete'])){ ?>
+        <script async  defer>
+            setTimeout(function(){
+                alert("Thêm giỏ hàng thành công!")
+            },1000);
+        </script>
+    <?php } ?>
+    <?php unset($_SESSION['add_compelete']) ?>
     <?php 
-        include "./assets/bk/connect.php";
+        include "./assets/connect.php";
         include "modal_sign.php" ;
     ?>
     <?php
@@ -141,9 +149,11 @@
                         <a href="products.php?id=<?php echo $book['id'] ?>" class="product_item_link">
                             <?php if($book['sale_percents'] != 0){?>
                                 <div class="product_item_sale"><?php echo $book['sale_percents']?>%</div>
+                            <?php }elseif($book['quantity'] < 1){ ?>
+                                <div class="END_product">Hết hàng</div>
                             <?php } ?>
                             <div class="product_item_img">
-                                <img src="./assets/bk/products/photos/<?php echo $book['photo']  ?>" alt="Ảnh sản phẩm">
+                                <img src="./assets/admin/products/photos/<?php echo $book['photo']  ?>" alt="Ảnh sản phẩm">
                             </div>
                             <div class="product_item_main">
                                 <div class="product_item_content">
@@ -162,8 +172,8 @@
                             </div>
                         </a>
                         <div class="product_shopping">
-                            <p class="product_shopping_add">Thêm giỏ hàng</p>
-                            <div class="product_icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                            <a href="add_cart.php?id=<?php echo $book['id'] ?>" class="product_shopping_add">Thêm giỏ hàng</a>
+                            <a href="add_cart.php?id=<?php echo $book['id'] ?>" class="product_icon"><i class="fa-solid fa-cart-shopping"></i></a>
                         </div>
                     </div>
                 <?php } ?>
@@ -319,7 +329,7 @@
                         </div>
                     </div>
                     <div class="product_shopping">
-                        <p class="product_shopping_add">Thêm giỏ hàng</p>
+                        <a class="product_shopping_add">Thêm giỏ hàng</a>
                         <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
                     </div>
                 </a>
@@ -349,9 +359,11 @@
                         <a href="products.php?id=<?php echo $book['id']?>" class="product_item_link">
                             <?php if($book['sale_percents'] != 0){?>
                                 <div class="product_item_sale"><?php echo $book['sale_percents']?>%</div>
+                            <?php }elseif($book['quantity'] < 1){ ?>
+                                <div class="END_product">Hết hàng</div>
                             <?php } ?>
                             <div class="product_item_img">
-                                <img src="./assets/bk/products/photos/<?php echo $book['photo']  ?>" alt="Ảnh sản phẩm">
+                                <img src="./assets/admin/products/photos/<?php echo $book['photo']  ?>" alt="Ảnh sản phẩm">
                             </div>
                             <div class="product_item_main">
                                 <div class="product_item_content">
@@ -370,8 +382,13 @@
                             </div>
                         </a>
                         <div class="product_shopping">
-                            <p class="product_shopping_add">Thêm giỏ hàng</p>
-                            <div class="product_icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                        <?php if($book['quantity'] > 0) { ?>
+                              <a href="add_cart.php?id=<?php echo $book['id'] ?>" class="product_shopping_add">Thêm giỏ hàng</a>
+                              <a href="add_cart.php?id=<?php echo $book['id'] ?>" class="product_icon"><i class="fa-solid fa-cart-shopping"></i></a>
+                              <!-- <div class="product_icon"><i class="fa-solid fa-cart-shopping"></i></div> -->
+                            <?php }else{ ?>
+                              <div class="out_of_products"><u>Hết hàng</u></div>
+                            <?php } ?>
                         </div>
                     </div>
                     <?php } ?>

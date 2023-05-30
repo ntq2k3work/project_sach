@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,6 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./assets/css/reset.css" />
+  <link rel="stylesheet" href="./assets/css/header.css">
   <link rel="stylesheet" href="./assets/css/style_all_book.css" />
   <link rel="stylesheet" href="./assets/css/responsive.css" />
   <title>Web bán sách</title>
@@ -21,15 +23,23 @@
 
 <body>
   <?php
-
-  include "./assets/bk/connect.php";
-  $get_products = "select * from products";
-  $list_products = mysqli_query($connect, $get_products);
-  // $category = $_GET['category'];
-  // if(empty($category)){
-  //   header('location:error.php');
-  //   exit;
-  // }
+  function convertMoney($value) {
+    if ($value<0) return "-".convertMoney(-$value);
+    return number_format(round($value/1000)*1000);
+    }
+    include "./assets/connect.php";
+  $ar = array("Lanh-dao" => "Sách Kinh Doanh - Lãnh Đạo","Marketing" => "Sách Kinh Doanh - Marketing","Tai-chinh" => "Sách Kinh Doanh - Tài Chính","Kinh-doanh" => "Sách Kinh Doanh",
+"PT_Ban_Than" => "Sách Kỹ Năng - Phát triển bản thân","Ki-nang" => "Sách kĩ năng","Nuoi_Day_con" => "Sách kĩ năng - Nuôi dạy con","Tam_Ly_Hoc" => "Sách Tâm Lý Học","Hoc_Tap" => "Sách học tập",
+"Toan" => "Sách Học Tập - Toán","Ielts" => "Sách Học Tập - Ielts","Tieng_anh" => "Sách Học Tập - Tiếng anh",
+"Van_Hoc" => "Sách văn học - Tiểu thuyết","TN_Tan_Van" => "Truyện ngắn - Tản văn","Tieu_thuyet" => "Tiểu thuyết","Truyen_cam_hung" => "Truyền cảm hứng"
+);
+  $category = $_GET['category'];
+  $sql_query = "select * from products inner join manufactures on products.id_manufactures = manufactures.id_manufactures where category = '$ar[$category]'";
+  $sql_count = "select count(*) from products where category = '$ar[$category]'";
+  $list_book = mysqli_query($connect,$sql_query);
+  $number_rows = mysqli_fetch_array(mysqli_query($connect,$sql_count))['count(*)'];
+  // print_r($number_rows);
+  // die()
   ?>
   <?php include "header.php" ?>
 
@@ -81,9 +91,22 @@
         </div>
         <div class="container_main_right_content">
           <div class="container_main_right_head">
-            <h2 class="right_head_left">Sách Kỹ Năng - Kinh Doanh</h2>
+            <h2 class="right_head_left"><?php 
+              $check = 0;
+              foreach($ar as $x => $x_value) {
+                if($x == $category){
+                  $check = 1;
+                  echo $x_value;
+                  break;
+                }
+              }
+              if($check == 0){
+                echo "Không tồn tại thể loại này !";
+                die();
+              }
+            ?></h2>
             <div class="right_head_right">
-              <span> 121 Sản phẩm </span>
+              <span> <?php echo $number_rows ?> Sản phẩm </span>
               <div class="right_head_sort">
                 Sắp xếp
                 <ul>
@@ -101,120 +124,44 @@
             </div>
           </div>
           <div class="container_main_right_main">
-            <a href="" class="product_item">
-              <div class="product_item_img">
-                <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
-              </div>
-              <div class="product_item_main">
-                <div class="product_item_content">
-                  <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
-                  <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
-                </div>
-                <div class="product_item_cost dis_flex">
-                  <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
-                  <del class="product_item_cost_order opacity_08">169,000 <sup><u>đ</u></sup></del>
-                </div>
-              </div>
-              <div class="product_shopping">
-                <p class="product_shopping_add">Thêm giỏ hàng</p>
-                <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
-              </div>
-            </a>
-            <a href="" class="product_item">
-              <div class="product_item_img">
-                <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
-              </div>
-              <div class="product_item_main">
-                <div class="product_item_content">
-                  <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
-                  <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
-                </div>
-                <div class="product_item_cost dis_flex">
-                  <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
-                  <del class="product_item_cost_order opacity_08">169,000 <sup><u>đ</u></sup></del>
-                </div>
-              </div>
-              <div class="product_shopping">
-                <p class="product_shopping_add">Thêm giỏ hàng</p>
-                <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
-              </div>
-            </a>
-            <a href="" class="product_item">
-              <div class="product_item_img">
-                <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
-              </div>
-              <div class="product_item_main">
-                <div class="product_item_content">
-                  <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
-                  <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
-                </div>
-                <div class="product_item_cost dis_flex">
-                  <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
-                  <del class="product_item_cost_order opacity_08">169,000 <sup><u>đ</u></sup></del>
-                </div>
-              </div>
-              <div class="product_shopping">
-                <p class="product_shopping_add">Thêm giỏ hàng</p>
-                <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
-              </div>
-            </a>
-            <a href="" class="product_item">
-              <div class="product_item_img">
-                <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
-              </div>
-              <div class="product_item_main">
-                <div class="product_item_content">
-                  <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
-                  <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
-                </div>
-                <div class="product_item_cost dis_flex">
-                  <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
-                  <del class="product_item_cost_order opacity_08">169,000 <sup><u>đ</u></sup></del>
-                </div>
-              </div>
-              <div class="product_shopping">
-                <p class="product_shopping_add">Thêm giỏ hàng</p>
-                <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
-              </div>
-            </a>
-            <a href="" class="product_item">
-              <div class="product_item_img">
-                <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
-              </div>
-              <div class="product_item_main">
-                <div class="product_item_content">
-                  <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
-                  <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
-                </div>
-                <div class="product_item_cost dis_flex">
-                  <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
-                  <del class="product_item_cost_order opacity_08">169,000 <sup><u>đ</u></sup></del>
-                </div>
-              </div>
-              <div class="product_shopping">
-                <p class="product_shopping_add">Thêm giỏ hàng</p>
-                <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
-              </div>
-            </a>
-            <a href="" class="product_item">
-              <div class="product_item_img">
-                <img src="./assets/img/doraemon/Doraemon1.jpg" alt="">
-              </div>
-              <div class="product_item_main">
-                <div class="product_item_content">
-                  <p class="product_item_content_head">Đại học kinh tế quốc dân</p>
-                  <p class="product_item_content_title">11 Nguyên Tắc Phát Triên Năng Lực Lãnh Đạo</p>
-                </div>
-                <div class="product_item_cost dis_flex">
-                  <div class="product_item_cost_new">169,000 <sup><u>đ</u></sup></div>
-                  <del class="product_item_cost_order opacity_08">169,000 <sup><u>đ</u></sup></del>
-                </div>
-              </div>
-              <div class="product_shopping">
-                <p class="product_shopping_add">Thêm giỏ hàng</p>
-                <p class="product_icon"><i class="fa-solid fa-cart-shopping"></i></p>
-              </div>
-            </a>
+            <?php foreach($list_book as $book){ ?>
+              <div class=" product_item">
+                        <a href="products.php?id=<?php echo $book['id'] ?>" class="product_item_link">
+                            <?php if($book['sale_percents'] != 0){?>
+                                <div class="product_item_sale"><?php echo $book['sale_percents']?>%</div>
+                            <?php }elseif($book['quantity'] < 1){ ?>
+                              <div class="END_product">Hết hàng</div>
+                            <?php } ?>
+                            <div class="product_item_img">
+                                <img src="./assets/admin/products/photos/<?php echo $book['photo']  ?>" alt="Ảnh sản phẩm">
+                            </div>
+                            <div class="product_item_main">
+                                <div class="product_item_content">
+                                    <p class="product_item_content_head"><?php echo $book['name'] ?></p>
+                                    <p class="product_item_content_title" title="<?php echo $book['products_name'] ?>"><?php echo $book['products_name'] ?></p>
+                                </div>
+                                <div class="product_item_cost dis_flex">
+                                    <div class="product_item_cost_new">
+                                        <?php if($book['sale_percents'] == 0){
+                                            echo convertMoney($book['price']);
+                                        }
+                                        else echo convertMoney($book['price']*(100-$book['sale_percents'])/100) ?><sup><u>đ</u></sup>
+                                    </div>
+                                    <del class="product_item_cost_order opacity_08"><?php echo convertMoney($book['price']) ?><sup><u>đ</u></sup></del>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="product_shopping">
+                            <?php if($book['quantity'] > 0) { ?>
+                              <a href="add_cart.php?id=<?php echo $book['id'] ?>" class="product_shopping_add">Thêm giỏ hàng</a>
+                              <a href="add_cart.php?id=<?php echo $book['id'] ?>" class="product_icon"><i class="fa-solid fa-cart-shopping"></i></a>
+                              <!-- <div class="product_icon"><i class="fa-solid fa-cart-shopping"></i></div> -->
+                            <?php }else{ ?>
+                              <div class="out_of_products"><u>Hết hàng</u></div>
+                            <?php } ?>
+                        </div>
+                    </div>
+            <?php } ?>
           </div>
         </div>
       </div>

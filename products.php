@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +14,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/reset.css">
+    <link rel="stylesheet" href="./assets/css/header.css">
     <link rel="stylesheet" href="./assets/css/style_product.css">
     <link rel="stylesheet" href="./assets/css/responsive.css">
     <title>Web bán sách</title>
@@ -23,8 +25,8 @@
             if($value < 0) return '-'. convertMoney(-$value);
             return number_format(round($value/1000)*1000);
         }
-        include "./assets/bk/connect.php";
-        include "./assets/bk/print_error.php";
+        include "./assets/connect.php";
+        include "./assets/print_error.php";
         $id = "";
         /// Nếu cố tình sửa id thì sẽ chuyển hướng sang trang lỗi
         if(empty($_GET['id'])){
@@ -47,13 +49,14 @@
         $sql_product = "select * from products inner join manufactures on products.id_manufactures = manufactures.id_manufactures where id = '$id'";
         $book = mysqli_fetch_array(mysqli_query($connect,$sql_product));
         $category = $book['category'];
-        $list_category_book = "select * from products inner join manufactures on products.id_manufactures = manufactures.id_manufactures where category = '$category'";
+        $list_category_book = "select * from products inner join manufactures on products.id_manufactures = manufactures.id_manufactures where category = '$category' and id != '$id'";
         $category_books = mysqli_query($connect,$list_category_book);
+        $quantity = 1;
     ?>
     <ol class="breadcrumb"></ol>
     <div class="product_container">
         <div class="product_container_left">
-            <img src="./assets/bk/products/photos/<?php echo $book['photo'] ?>" alt="">
+            <img src="./assets/admin/products/photos/<?php echo $book['photo'] ?>" alt="">
         </div>
         <div class="product_container_right">
             <div class="product_dentail_ship">
@@ -92,13 +95,13 @@
             <div class="product_buy">
                 <form class="product_buy_left" method="post">
                     <input type="button" value="-" id="subtract">
-                    <input type="text" name="quantity" id="quantity" value="1" style="text-align: center;">
+                    <input type="text" name="quantity" id="quantity" value="<?php if(isset($_GET['quantity'])) echo $_GET['quantity'] ;else echo $quantity;?>" style="text-align: center;" readonly>
                     <input type="button" value="+" id="add">
                 </form>
-                <div class="product_buy_right">
+                <a class="product_buy_right" href="add_cart.php?id=<?php echo $id ?>&quantity">
                     <span></span>
                     <p>Thêm vào giỏ</p>
-                </div>
+                </a>
             </div>
             <hr style="opacity:0.3">
             <div class="product_description">
@@ -110,8 +113,10 @@
     <hr style="opacity: 0.3;">
     <h1 class="products_header">Sản phẩm liên quan</h1>
     <div class="related_products">
-        <i class="fa fa-angle-left pre_next_icon"></i>
-        <i class="fa fa-angle-right pre_next_icon"></i>
+        <?php if(mysqli_num_rows($category_books)){?>
+            <i class="fa fa-angle-left pre_next_icon"></i>
+            <i class="fa fa-angle-right pre_next_icon"></i>
+        <?php } ?>
         <div class="related_products_main">
             <ul class="promotion_main dis_flex">
                     <?php foreach($category_books as $book){ ?>
@@ -121,7 +126,7 @@
                                     <div class="product_item_sale"><?php echo $book['sale_percents']?>%</div>
                                 <?php } ?>
                                 <div class="product_item_img">
-                                    <img src="./assets/bk/products/photos/<?php echo $book['photo']  ?>" alt="Ảnh sản phẩm">
+                                    <img src="./assets/admin/products/photos/<?php echo $book['photo']  ?>" alt="Ảnh sản phẩm">
                                 </div>
                                 <div class="product_item_main">
                                     <div class="product_item_content">
@@ -140,7 +145,7 @@
                                 </div>
                             </a>
                             <div class="product_shopping">
-                                <p class="product_shopping_add">Thêm giỏ hàng</p>
+                                <a href="add_cart.php?id=<?php echo $book['id'] ?>" class="product_shopping_add">Thêm giỏ hàng</a>
                                 <div class="product_icon"><i class="fa-solid fa-cart-shopping"></i></div>
                             </div>
                         </div>
@@ -148,7 +153,7 @@
             </ul>
         </div>
     </div>
-    <script src="./assets/process_js/product_quantity.js"></script>
+    <?php include "./assets/process_js/product_quantity.php" ?>
     <script src="./assets/process_js/related_products_action.js"></script>
     <?php include "new_feed.php" ?>
     <?php include "footer.php" ?>

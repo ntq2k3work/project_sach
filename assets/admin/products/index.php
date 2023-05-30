@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,30 +10,17 @@
 <body>
     <?php 
         // require "../menu.php";
-        require "../connect.php";
+        require "../../connect.php";
         $sql_select_product = "SELECT id,products_name,category,Release_Time,description,photo,quantity,price,sale_percents,manufactures.name as manufactures_name FROM products INNER JOIN manufactures on products.id_manufactures = manufactures.	id_manufactures";
         $list_product = mysqli_query($connect,$sql_select_product);
 
     ?>
     <h1>Quản lý sản phẩm</h1>
     <div><a href="form_insert.php">Thêm sản phẩm</a></div>
-    <?php 
-        include "../connect.php";
-        $error = "";
-        $show_error = "";
-        $success = "";
-        $show_success = "";
-            if(isset($_GET['error'])){ 
-                $error = $_GET['error'];
-                $show_error = "<span style=\"color: red;\">$error</span>";
-            }
-            if(isset($_GET['success'])){
-                $success = $_GET['success'];
-                $show_success = "<span style=\"color: green;\">$success</span>";
-            }
-    ?>
+
         
-    <h4><?php if($error != "") echo $show_error ;if($success !="") echo $show_success; ?></h4>
+    <h4><?php if(!empty($_SESSION['error'])) echo $_SESSION['error'] ;if(!empty($_SESSION['success'])) echo $_SESSION['success'] ?></h4>
+    <?php unset($_SESSION['error']);unset($_SESSION['success']) ?>
     <table border="1" width = "100%" cellpadding='3' style="text-align:center;">
         <tr>
             <th>Tên</th>

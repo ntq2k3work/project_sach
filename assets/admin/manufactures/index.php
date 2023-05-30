@@ -9,28 +9,14 @@
 <body>
 
     <?php 
-        include "../connect.php";
+        include "../../connect.php";
         $sql_select_all = "select * from manufactures";
         $sql_select_all_process = mysqli_query($connect,$sql_select_all);
     ?>
 
     <h2>Đây là khu vực quản lý sản xuất </h2>
     <div><a href="form_insert.php">Thêm nhà sản xuất</a></div>
-    <?php 
-        include "../connect.php";
-        $error = "";
-        $show_error = "";
-        $success = "";
-        $show_success = "";
-            if(isset($_GET['error'])){ 
-                $error = $_GET['error'];
-                $show_error = "<span style=\"color: red;\">$error</span>";
-            }
-            if(isset($_GET['success'])){
-                $success = $_GET['success'];
-                $show_success = "<span style=\"color: green;\">$success</span>";
-            }
-    ?>
+    <?php require "../../print_error.php" ?>
         
     <h4><?php if($error != "") echo $show_error ;if($success !="") echo $show_success; ?></h4>
     <table border="1" width="100%">

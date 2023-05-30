@@ -8,8 +8,8 @@
 </head>
 <body>
     <?php
-        include "../menu.php";
-        include "../connect.php";
+        include "../../menu.php";
+        include "../../connect.php";
         $sql_select_manufactures = "select * from manufactures ";
         $result = mysqli_query($connect,$sql_select_manufactures);
 

@@ -1,5 +1,5 @@
 <?php 
-    include "assets/bk/connect.php";
+    include "./assets/connect.php";
     $name_account = addslashes($_POST['account']);
     $password = addslashes($_POST['password']);
     $sql_check = "select count(*) from account 

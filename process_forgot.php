@@ -1,5 +1,5 @@
 <?php 
-    include "./assets/bk/connect.php";
+    include "./assets/connect.php";
     $email = $_POST['email'];
     $password = substr(md5(rand(1,10000000)),0,6);
     $sql_reset_pass = "update account set password = '$password' where email = '$email'";

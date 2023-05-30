@@ -1,6 +1,6 @@
 <?php 
-    include "./assets/bk/connect.php";
-    // session_start(); 
+    include "./assets/connect.php";
+    
     if(isset($_COOKIE['dnuser'])){
         $token = $_COOKIE['dnuser'];
         $sql_customer = "select * from account where token = '$token' limit 1";
@@ -28,7 +28,7 @@
                     <a href="">Danh mục sách <i class="fa-solid fa-chevron-down menu_icon_c1"></i></a>
                     <ul class="sub_menu list_book_menu_sub">
                         <li class="sub_menu_2">
-                            <a href="sach-kinh-doanh.php" title="Sách kinh doanh">Sách kinh doanh <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
+                            <a href="./all_book.php?category=Kinh-doanh" title="Sách kinh doanh">Sách kinh doanh <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
                             <ul class="sub_menu_3">
                                 <li><a href="./all_book.php?category=Lanh-dao" title="Lãnh đạo">Lãnh đạo</a></li>
                                 <li><a href="./all_book.php?category=Marketing" title="Marketing">Marketing</a></li>
@@ -36,32 +36,32 @@
                             </ul>
                         </li>
                         <li class="sub_menu_2">
-                            <a href="./all_book.php?category=sach-ki-nang">Sách kĩ năng <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
+                            <a href="./all_book.php?category=Ki-nang">Sách kĩ năng <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
                             <ul class="sub_menu_3">
-                                <li><a href="">Lãnh đạo</a></li>
-                                <li><a href="">Marketing</a></li>
-                                <li><a href="">Tài chính</a></li>
+                                <li><a href="./all_book.php?category=PT_Ban_Than">Phát triển bản thân</a></li>
+                                <li><a href="./all_book.php?category=Nuoi_Day_con">Nuôi dạy con</a></li>
+                                <!-- <li><a href="./all_book.php?category=Marketing">Tài chính</a></li> -->
                             </ul>
                         </li>
-                        <li><a href="">Sách tâm lý học</a></li>
+                        <li><a href="./all_book.php?category=Tam_Ly_Hoc">Sách tâm lý học</a></li>
                         <li class="sub_menu_2">
-                            <a href="">Sách học tập <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
+                            <a href="./all_book.php?category=Hoc_Tap">Sách học tập <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
                             <ul class="sub_menu_3">
-                                <li><a href="">Lãnh đạo</a></li>
-                                <li><a href="">Marketing</a></li>
-                                <li><a href="">Tài chính</a></li>
+                                <li><a href="./all_book.php?category=Toan">Toán</a></li>
+                                <li><a href="./all_book.php?category=Ielts">Ielts</a></li>
+                                <li><a href="./all_book.php?category=Tieng_anh">Tiếng anh</a></li>
                             </ul>
                         </li>
                         <li class="sub_menu_2">
-                            <a href="">Sách văn học - Tiểu thuyết <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
+                            <a href="./all_book.php?category=Van_Hoc">Sách văn học - Tiểu thuyết <i class="fa-solid fa-chevron-right menu_icon_c2"></i></a>
                             <ul class="sub_menu_3">
-                                <li><a href="">Lãnh đạo</a></li>
-                                <li><a href="">Marketing</a></li>
-                                <li><a href="">Tài chính</a></li>
+                                <li><a href="./all_book.php?category=TN_Tan_Van">Truyện ngắn - Tản văn</a></li>
+                                <li><a href="./all_book.php?category=Tieu_thuyet">Tiểu thuyết</a></li>
+                                <li><a href="./all_book.php?category=Truyen_cam_hung">Truyền cảm hứng</a></li>
                             </ul>
                         </li>
-                        <li><a href="">Sách thiếu nhi</a></li>
-                        <li><a href="">Quà tặng cột sống</a></li>
+                        <!-- <li><a href="">Sách thiếu nhi</a></li>
+                        <li><a href="">Quà tặng cột sống</a></li> -->
                     </ul>
                 </li>
                 <li>
@@ -114,9 +114,9 @@
                         }
                     ?>
                 </div>
-                <div class="header_action_section header_action_shopping">
-                    <i class="header_action_icon fa-solid fa-cart-shopping"></i>
-                    <sup class="shopping_count">0</sup>
+                <div class="header_action_section header_action_shopping shopping_extend">
+                    <i class="header_action_icon fa-solid fa-cart-shopping "></i>
+                    <?php include 'cart.php' ?>
                 </div>
             </div>
         </div>

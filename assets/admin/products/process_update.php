@@ -1,17 +1,20 @@
 <?php
+    session_start();
     //Kiểm tra id có trống không
     if(empty($_GET['id'])){
-        header('location:index.php?error=Vui lòng nhập ID!');
+        $_SESSION['error'] = "Vui lòng nhập ID!";
+        header('location:index.php');
         exit;
     }
     
     $id = $_GET['id'];
 
     if(empty($_POST['name']) || empty($_POST['category']) || empty($_POST['description'])  || empty($_POST['price']) ){
-        header('location:form_update.php?error=Phải điền đẩy đủ thông tin');
+        $_SESSION['erroru'] = "Phải điền đẩy đủ thông tin";
+        header('location:form_update.php');
         exit;
     }
-    include "../connect.php";
+    require "../../connect.php";
 
     $products_name = addslashes($_POST['name']);
     $category = addslashes($_POST['category']);
@@ -26,24 +29,28 @@
     $id_manufactures = addslashes($_POST['id_manufactures']);
     ///Kiểm tra số lượng có lớn hơn 0 không
     if($quantity < 0){
-        header('location:form_update.php?error=Số lượng không thể âm');
+        $_SESSION['erroru'] = "Số lượng không thể âm ";
+        header("location:form_update.php?id=$id");
         exit;
     }
     ///Kiểm tra giá tiền có lớn hơn 0 không
     if($price < 0){
-        header('location:form_update.php?error=Giá tiền không thể âm');
+        $_SESSION['erroru'] = "Giá tiền không thể âm";
+        header("location:form_update.php?id=$id");
         exit;
     }
-    if($sale_percents < 0){
-        header('location:form_update.php?error=Giá giảm không thể âm');
+    if($sale_percents < 0 || $sale_percents > 100){
+        $_SESSION['erroru'] = "Giảm giá chỉ có thể từ 0% đến 100%";
+        header("location:form_update.php?id=$id");
         exit;
     }
-    /// Nếu trùng thì cộng số lượng lên = sô lượng thêm vào
+    /// Trùng
     $sql_check = "select exists(select * from products where products_name = '$products_name' and category = '$category' and Release_Time ='$Release_Time' and sale_percents = '$sale_percents'  and quantity = '$quantity'  and description = '$description' and price = '$price' and id_manufactures = '$id_manufactures')";
     $check_array = mysqli_query($connect,$sql_check);
     $check = mysqli_fetch_array($check_array);
     if($check[0] && $photo_new['size'] == 0){
-        header("location:index.php?$id&error=Sản phẩm đã tồn tại !");
+        $_SESSION['error'] = "Sản phẩm đã tồn tại !";
+        header("location:index.php");
         exit; 
     }else{
         /// Update khi thông tin thay đổi
@@ -72,7 +79,7 @@
         }
     }
     
-    
-    header('location:index.php?success=Thay đổi thành công');
+    $_SESSION['success'] = "Thay đổi thành công";
+    header('location:index.php');
     mysqli_close($connect);
 ?>

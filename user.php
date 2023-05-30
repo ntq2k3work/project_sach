@@ -1,5 +1,5 @@
 <!-- <?php 
-    include "assets/bk/connect.php";
+    include "./assets/connect.php";
     session_start();
     if(!isset($_SESSION['id'])){
         header('location:error.php');
